@@ -6,21 +6,22 @@ import 'package:laboratorio_login_signup_forms/layout/layout.dart';
   //que sea el padre la const
   // ctrl + punto
   // ctrl + space
-void main() => runApp( const MyApp() );
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
-  
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const ingreso_usuarios(),
+      initialRoute: '/', // Definir la ruta inicial
       routes: {
-        'registro': ( BuildContext context ) => const registro_usuarios()
-      }
+        '/': (BuildContext context) => const pagina_principal(),
+        '/ingreso': (BuildContext context) => const ingreso_usuarios(),
+        '/registro': (BuildContext context) => const registro_usuarios(),
+        '/nosotros': (BuildContext context) => const acerca_de_nosotros(),
+      },
     );
-    
   }
 }
