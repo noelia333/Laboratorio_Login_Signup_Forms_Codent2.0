@@ -1,87 +1,158 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 
-class ingreso_usuarios extends StatelessWidget {
-  const ingreso_usuarios ({Key? key}) : super(key: key);
+class PasswordTextField extends StatefulWidget {
+  final TextEditingController controller;
+  const PasswordTextField({required this.controller, Key? key}) : super(key: key);
+
+  @override
+  _PasswordTextFieldState createState() => _PasswordTextFieldState();
+}
+
+class _PasswordTextFieldState extends State<PasswordTextField> {
+  bool _obscureText = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      obscureText: _obscureText,
+      controller: widget.controller,
+      decoration: InputDecoration(
+        labelText: 'Contraseña',
+        border: const OutlineInputBorder(),
+        suffixIcon: IconButton(
+          icon: Icon(
+            _obscureText ? Icons.visibility : Icons.visibility_off,
+          ),
+          onPressed: () {
+            setState(() {
+              _obscureText = !_obscureText;
+            });
+          },
+        ),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Por favor, ingresa tu contraseña';
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class ingreso_usuarios extends StatefulWidget {
+  const ingreso_usuarios({Key? key}) : super(key: key);
+
+  @override
+  _IngresoUsuariosState createState() => _IngresoUsuariosState();
+}
+
+class _IngresoUsuariosState extends State<ingreso_usuarios> {
+  bool esCliente = false;
+  bool esProfesional = false;
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    appBar: AppBar(
-  title: const Row(
-    mainAxisAlignment: MainAxisAlignment.start,
-    children: [
-      SizedBox(width: 20.0),
-      Text(
-        'Just One Click',
-        style: TextStyle(
-          color: Colors.black,
-          fontSize: 30.0,
-          fontWeight: FontWeight.bold,
+      appBar: AppBar(
+        title: const Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            SizedBox(width: 20.0),
+            Text(
+              'Just One Click',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 30.0,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
         ),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        actions: [
+          TextButton(
+            onPressed: () {
+              // Acción cuando se presiona "Home"
+              Navigator.pushNamed(context, '/');
+            },
+            child: const Text(
+              'Home',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              // Acción cuando se presiona "Acerca de Nosotros"
+              Navigator.pushNamed(context, '/nosotros');
+            },
+            child: const Text(
+              'Acerca de Nosotros',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              // Acción cuando se presiona "Iniciar Sesión"
+              Navigator.pushNamed(context, '/ingreso');
+            },
+            child: const Text(
+              'Iniciar Sesión',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              // Acción cuando se presiona "Registrarse"
+              Navigator.pushNamed(context, '/registro');
+            },
+            child: const Text(
+              'Registrarse',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              // Acción cuando se presiona "Cliente"
+              Navigator.pushNamed(context, '/cliente');
+            },
+            child: const Text(
+              'Cliente',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              // Acción cuando se presiona "profesional"
+              Navigator.pushNamed(context, '/profesional');
+            },
+            child: const Text(
+              'Profesional',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
+          const SizedBox(width: 20.0),
+        ],
       ),
-    ],
-  ),
-  backgroundColor: Colors.white,
-  elevation: 0,
-  actions: [
-    TextButton(
-      onPressed: () {
-        // Acción cuando se presiona "Home"
-        Navigator.pushNamed(context, '/');
-      },
-      child: const Text(
-        'Home',
-        style: TextStyle(
-          color: Colors.black,
-        ),
-      ),
-    ),
-    TextButton(
-      onPressed: () {
-        // Acción cuando se presiona "Acerca de Nosotros"
-        Navigator.pushNamed(context, '/nosotros');
-      },
-      child: const Text(
-        'Acerca de Nosotros',
-        style: TextStyle(
-          color: Colors.black,
-        ),
-      ),
-    ),
-    TextButton(
-      onPressed: () {
-        // Acción cuando se presiona "Iniciar Sesión"
-        Navigator.pushNamed(context, '/ingreso');
-      },
-      child: const Text(
-        'Iniciar Sesión',
-        style: TextStyle(
-          color: Colors.black,
-        ),
-      ),
-    ),
-    TextButton(
-      onPressed: () {
-        // Acción cuando se presiona "Registrarse"
-        Navigator.pushNamed(context, '/registro');
-      },
-      child: const Text(
-        'Registrarse',
-        style: TextStyle(
-          color: Colors.black,
-        ),
-      ),
-    ),
-    const SizedBox(width: 20.0),
-  ],
-),
-
-
       body: Center(
         child: Container(
-          width: 400.0, // Ancho máximo según tu diseño
+          width: 400.0,
           margin: const EdgeInsets.symmetric(vertical: 100.0),
           padding: const EdgeInsets.all(20.0),
           decoration: BoxDecoration(
@@ -123,23 +194,44 @@ class ingreso_usuarios extends StatelessWidget {
                       },
                     ),
                     const SizedBox(height: 20.0),
-                    TextFormField(
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        labelText: 'Contraseña',
-                        border: OutlineInputBorder(),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Por favor, ingresa tu contraseña';
-                        }
-                        return null;
-                      },
+                    PasswordTextField(controller: _passwordController),
+                    const SizedBox(height: 20.0),
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: esCliente,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              esCliente = value ?? false;
+                              esProfesional = false;
+                            });
+                          },
+                        ),
+                        const Text('Soy Cliente'),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: esProfesional,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              esProfesional = value ?? false;
+                              esCliente = false;
+                            });
+                          },
+                        ),
+                        const Text('Soy Profesional'),
+                      ],
                     ),
                     const SizedBox(height: 20.0),
                     ElevatedButton(
                       onPressed: () {
-                        // Agrega aquí la lógica para procesar el inicio de sesión
+                        if (esCliente) {
+                          Navigator.pushNamed(context, '/cliente');
+                        } else if (esProfesional) {
+                          Navigator.pushNamed(context, '/profesional');
+                        }
                       },
                       child: const Text('Iniciar Sesión'),
                     ),
@@ -211,5 +303,6 @@ class ingreso_usuarios extends StatelessWidget {
     );
   }
 }
+
 
 

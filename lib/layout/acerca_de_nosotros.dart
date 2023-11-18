@@ -74,6 +74,30 @@ class acerca_de_nosotros extends StatelessWidget {
               ),
             ),
           ),
+          TextButton(
+            onPressed: () {
+              // Acción cuando se presiona "Cliente"
+              Navigator.pushNamed(context, '/cliente');
+            },
+            child: const Text(
+              'Cliente',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              // Acción cuando se presiona "profesional"
+              Navigator.pushNamed(context, '/profesional');
+            },
+            child: const Text(
+              'Profesional',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
           const SizedBox(width: 20.0),
         ],
       ),

@@ -74,6 +74,30 @@ Widget build(BuildContext context) {
         ),
       ),
     ),
+    TextButton(
+      onPressed: () {
+        // Acción cuando se presiona "Cliente"
+        Navigator.pushNamed(context, '/cliente');
+      },
+      child: const Text(
+        'Cliente',
+        style: TextStyle(
+          color: Colors.black,
+        ),
+      ),
+    ),
+    TextButton(
+      onPressed: () {
+        // Acción cuando se presiona "profesional"
+        Navigator.pushNamed(context, '/profesional');
+      },
+      child: const Text(
+        'Profesional',
+        style: TextStyle(
+          color: Colors.black,
+        ),
+      ),
+    ),
     const SizedBox(width: 20.0),
   ],
 ),
@@ -155,6 +179,7 @@ Widget build(BuildContext context) {
               buildSuccessCard('"Desde que me uní a Just One Click, mi carrera como maquillador ha despegado."', 'Felipe Martinez'),
             ],
           ),
+          const SizedBox(height: 40.0),
           // Agrega más widgets según sea necesario en el cuerpo
         ],
       ),
@@ -240,6 +265,7 @@ Widget buildCard(String title, String description, String imageUrl) {
           Text(
             title,
             style: const TextStyle(
+              fontSize: 15.0,
               fontWeight: FontWeight.bold,
               color: Color.fromARGB(255, 29, 28, 28), // Cambia este color según tus preferencias
             ),
@@ -253,6 +279,7 @@ Widget buildCard(String title, String description, String imageUrl) {
               description,
               textAlign: TextAlign.justify, // Ajusta la alineación según tus preferencias
               style: const TextStyle(
+                fontSize: 15.0,
                 color: Color.fromARGB(255, 29, 28, 28), // Cambia este color según tus preferencias
               ),
             ),
@@ -278,6 +305,7 @@ Widget buildSuccessCard(String description, String name) {
               description,
               textAlign: TextAlign.justify,
               style: const TextStyle(
+                fontSize: 15.0,
                 color: Color.fromARGB(255, 29, 28, 28),
               ),
             ),
@@ -285,6 +313,7 @@ Widget buildSuccessCard(String description, String name) {
             Text(
               name,
               style: const TextStyle(
+                fontSize: 15.0,
                 fontWeight: FontWeight.bold,
                 color: Color.fromARGB(255, 29, 28, 28),
               ),

@@ -1,9 +1,57 @@
-// ignore_for_file: camel_case_types
+// ignore_for_file: camel_case_types, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 
-class registro_usuarios extends StatelessWidget {
+class PasswordTextField extends StatefulWidget {
+  final TextEditingController controller;
+  const PasswordTextField({required this.controller, Key? key}) : super(key: key);
+
+  @override
+  _PasswordTextFieldState createState() => _PasswordTextFieldState();
+}
+
+class _PasswordTextFieldState extends State<PasswordTextField> {
+  bool _obscureText = true;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      obscureText: _obscureText,
+      controller: widget.controller,
+      decoration: InputDecoration(
+        labelText: 'Contraseña',
+        border: const OutlineInputBorder(),
+        suffixIcon: IconButton(
+          icon: Icon(
+            _obscureText ? Icons.visibility : Icons.visibility_off,
+          ),
+          onPressed: () {
+            setState(() {
+              _obscureText = !_obscureText;
+            });
+          },
+        ),
+      ),
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          return 'Por favor, ingresa tu contraseña';
+        }
+        return null;
+      },
+    );
+  }
+}
+
+class registro_usuarios extends StatefulWidget {
   const registro_usuarios({Key? key}) : super(key: key);
+
+  @override
+  _RegistroUsuariosState createState() => _RegistroUsuariosState();
+}
+
+class _RegistroUsuariosState extends State<registro_usuarios> {
+
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -69,6 +117,30 @@ class registro_usuarios extends StatelessWidget {
             },
             child: const Text(
               'Registrarse',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              // Acción cuando se presiona "Cliente"
+              Navigator.pushNamed(context, '/cliente');
+            },
+            child: const Text(
+              'Cliente',
+              style: TextStyle(
+                color: Colors.black,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () {
+              // Acción cuando se presiona "profesional"
+              Navigator.pushNamed(context, '/profesional');
+            },
+            child: const Text(
+              'Profesional',
               style: TextStyle(
                 color: Colors.black,
               ),
@@ -160,19 +232,7 @@ class registro_usuarios extends StatelessWidget {
                       },
                     ),
                     const SizedBox(height: 20.0),
-                    TextFormField(
-                      obscureText: true,
-                      decoration: const InputDecoration(
-                        labelText: 'Contraseña',
-                        border: OutlineInputBorder(),
-                      ),
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Por favor, ingresa tu contraseña';
-                        }
-                        return null;
-                      },
-                    ),
+                    PasswordTextField(controller: _passwordController),
                     const SizedBox(height: 20.0),
                     ElevatedButton(
                       onPressed: () {

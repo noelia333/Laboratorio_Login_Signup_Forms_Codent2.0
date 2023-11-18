@@ -21,6 +21,8 @@ class MyApp extends StatelessWidget {
         '/ingreso': (BuildContext context) => const ingreso_usuarios(),
         '/registro': (BuildContext context) => const registro_usuarios(),
         '/nosotros': (BuildContext context) => const acerca_de_nosotros(),
+        '/cliente': (BuildContext context) => const usuarios(),
+        '/profesional': (BuildContext context) => const profesionales(),
       },
     );
   }
