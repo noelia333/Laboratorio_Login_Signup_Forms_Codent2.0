@@ -23,6 +23,8 @@ class MyApp extends StatelessWidget {
         '/nosotros': (BuildContext context) => const acerca_de_nosotros(),
         '/cliente': (BuildContext context) => const usuarios(),
         '/profesional': (BuildContext context) => const profesionales(),
+        '/servicio': (BuildContext context) => const agenda_servicio(),
+        '/agenda_profesional': (BuildContext context) => const agenda_profesional(),      
       },
     );
   }

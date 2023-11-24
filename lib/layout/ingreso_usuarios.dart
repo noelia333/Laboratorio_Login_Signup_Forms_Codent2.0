@@ -1,46 +1,7 @@
 // ignore_for_file: camel_case_types, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-
-class PasswordTextField extends StatefulWidget {
-  final TextEditingController controller;
-  const PasswordTextField({required this.controller, Key? key}) : super(key: key);
-
-  @override
-  _PasswordTextFieldState createState() => _PasswordTextFieldState();
-}
-
-class _PasswordTextFieldState extends State<PasswordTextField> {
-  bool _obscureText = true;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextFormField(
-      obscureText: _obscureText,
-      controller: widget.controller,
-      decoration: InputDecoration(
-        labelText: 'Contraseña',
-        border: const OutlineInputBorder(),
-        suffixIcon: IconButton(
-          icon: Icon(
-            _obscureText ? Icons.visibility : Icons.visibility_off,
-          ),
-          onPressed: () {
-            setState(() {
-              _obscureText = !_obscureText;
-            });
-          },
-        ),
-      ),
-      validator: (value) {
-        if (value == null || value.isEmpty) {
-          return 'Por favor, ingresa tu contraseña';
-        }
-        return null;
-      },
-    );
-  }
-}
+import 'password_text_field.dart';
 
 class ingreso_usuarios extends StatefulWidget {
   const ingreso_usuarios({Key? key}) : super(key: key);
@@ -228,9 +189,9 @@ class _IngresoUsuariosState extends State<ingreso_usuarios> {
                     ElevatedButton(
                       onPressed: () {
                         if (esCliente) {
-                          Navigator.pushNamed(context, '/cliente');
+                          Navigator.pushNamed(context, '/servicio');
                         } else if (esProfesional) {
-                          Navigator.pushNamed(context, '/profesional');
+                          Navigator.pushNamed(context, '/agenda_profesional');
                         }
                       },
                       child: const Text('Iniciar Sesión'),
