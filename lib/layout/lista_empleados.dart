@@ -11,39 +11,43 @@ class ListaEstablecimientos extends StatefulWidget {
   _ListaEstablecimientosState createState() => _ListaEstablecimientosState();
 }
 
-class Establecimiento {
+class Empleado {
   final String id;
+  final String id_establecimiento;
   final String nombre;
-  final String direccion;
-  final String ciudad;
+  final String apellido;
   final String imagen;
+  final String horario;
 
-  Establecimiento({
+  Empleado({
     required this.id,
+    required this.id_establecimiento,
     required this.nombre,
-    required this.direccion,
-    required this.ciudad,
+    required this.apellido,
     required this.imagen,
+    required this.horario,
   });
 }
 
 class _ListaEstablecimientosState extends State<ListaEstablecimientos> {
-  Future get_establecimientos() async {
+  Future get_empleados() async {
     var url = Uri.http("192.168.0.10", 'analista_vial.php', {'q': '{http}'});
     final response = await http.get(url);
     var responseData = json.decode(response.body);
 
-    List<Establecimiento> establecimientos = [];
+    List<Empleado> empleados = [];
     for (var singleUser in responseData) {
-      Establecimiento establecimiento = Establecimiento(
-          id: singleUser["id"],
-          nombre: singleUser["nombre"],
-          direccion: singleUser["direccion"],
-          ciudad: singleUser["ciudad"],
-          imagen: singleUser["imagen"]);
-      establecimientos.add(establecimiento);
+      Empleado empleado = Empleado(
+        id: singleUser["id"],
+        id_establecimiento: singleUser["id_establecimiento"],
+        nombre: singleUser["nombre"],
+        apellido: singleUser["apellido"],
+        imagen: singleUser["imagen"],
+        horario: singleUser["horario"],
+      );
+      empleados.add(empleado);
     }
-    return establecimientos;
+    return empleados;
   }
 
   @override
@@ -138,7 +142,7 @@ class _ListaEstablecimientosState extends State<ListaEstablecimientos> {
           children: [
             Padding(
               padding: EdgeInsets.only(top: 70),
-              child: Text('Selecciona el establecimiento:',
+              child: Text('Selecciona el empleado favorito:',
                   style: TextStyle(
                       fontFamily: 'Poppins',
                       fontSize: 20,
@@ -148,7 +152,7 @@ class _ListaEstablecimientosState extends State<ListaEstablecimientos> {
             Container(
               height: 400,
               child: FutureBuilder(
-                  future: get_establecimientos(),
+                  future: get_empleados(),
                   builder: (BuildContext ctx, AsyncSnapshot snapshot) {
                     if (snapshot.hasData) {
                       return ListView.builder(
@@ -158,9 +162,9 @@ class _ListaEstablecimientosState extends State<ListaEstablecimientos> {
                             children: [
                               Text(snapshot.data[index].id),
                               Text(snapshot.data[index].nombre),
-                              Text(snapshot.data[index].direccion),
-                              Text(snapshot.data[index].ciudad),
+                              Text(snapshot.data[index].apellido),
                               Text(snapshot.data[index].imagen),
+                              Text(snapshot.data[index].horario),
                             ],
                           );
                         },
