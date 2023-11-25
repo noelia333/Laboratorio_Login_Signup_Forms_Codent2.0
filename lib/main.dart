@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:laboratorio_login_signup_forms/layout/eleccion_servicio.dart';
 import 'package:laboratorio_login_signup_forms/layout/layout.dart';
 
-
- //todo widget tiene un metodo build, los widget son CLASES
-  //que sea el padre la const
-  // ctrl + punto
-  // ctrl + space
+//todo widget tiene un metodo build, los widget son CLASES
+//que sea el padre la const
+// ctrl + punto
+// ctrl + space
 void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
@@ -24,7 +24,10 @@ class MyApp extends StatelessWidget {
         '/cliente': (BuildContext context) => const usuarios(),
         '/profesional': (BuildContext context) => const profesionales(),
         '/servicio': (BuildContext context) => const agenda_servicio(),
-        '/agenda_profesional': (BuildContext context) => const agenda_profesional(),      
+        '/eleccion_servicio': (BuildContext context) =>
+            const EleccionServicio(),
+        '/agenda_profesional': (BuildContext context) =>
+            const agenda_profesional(),
       },
     );
   }

@@ -1,8 +1,7 @@
-// ignore_for_file: camel_case_types, library_private_types_in_public_api, prefer_typing_uninitialized_variables
+// ignore_for_file: camel_case_types, library_private_types_in_public_api, prefer_typing_uninitialized_variables, prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:logger/logger.dart';
 
 class agenda_servicio extends StatefulWidget {
   const agenda_servicio({Key? key}) : super(key: key);
@@ -12,12 +11,15 @@ class agenda_servicio extends StatefulWidget {
 }
 
 class _AgendaServicioState extends State<agenda_servicio> {
+  TextEditingController fecha = TextEditingController();
+  TextEditingController hora = TextEditingController();
   String? selectedService = ''; // Para almacenar el servicio seleccionado
-  DateTime selectedDate = DateTime.now(); // Para almacenar la fecha seleccionada
-  TimeOfDay selectedTime = TimeOfDay.now(); // Para almacenar la hora seleccionada
+  DateTime selectedDate =
+      DateTime.now(); // Para almacenar la fecha seleccionada
+  TimeOfDay selectedTime =
+      TimeOfDay.now(); // Para almacenar la hora seleccionada
   String? selectedLocation = ''; // Para almacenar el lugar seleccionado
   String? selectedCategory = '';
-  var logger = Logger();
 
   @override
   Widget build(BuildContext context) {
@@ -38,25 +40,25 @@ class _AgendaServicioState extends State<agenda_servicio> {
       'Maquillaje Profesional',
       'Masaje Estético',
     ];
-    
+
     return Scaffold(
       appBar: AppBar(
-        title: const Row(
+        toolbarHeight: 100,
+        title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(width: 20.0),
-            Text(
-              'Just One Click',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 30.0,
-                fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.only(left: 100),
+              child: Container(
+                height: 100,
+                width: 100,
+                child: Image.asset('src/imagenes/logo_justone.png'),
               ),
-            ),
+            )
           ],
         ),
         backgroundColor: Colors.white,
-        elevation: 0,
+        elevation: 1,
         actions: [
           TextButton(
             onPressed: () {
@@ -66,214 +68,245 @@ class _AgendaServicioState extends State<agenda_servicio> {
             child: const Text(
               'Home',
               style: TextStyle(
-                color: Colors.black,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w500,
+                  color: Colors.black,
+                  fontSize: 16),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 30),
+            child: TextButton(
+              onPressed: () {
+                // Acción cuando se presiona "Acerca de Nosotros"
+                Navigator.pushNamed(context, '/nosotros');
+              },
+              child: const Text(
+                'Acerca de Nosotros',
+                style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                    fontSize: 16),
               ),
             ),
           ),
-          TextButton(
-            onPressed: () {
-              // Acción cuando se presiona "Acerca de Nosotros"
-              Navigator.pushNamed(context, '/nosotros');
-            },
-            child: const Text(
-              'Acerca de Nosotros',
-              style: TextStyle(
-                color: Colors.black,
-              ),
+          Padding(
+            padding: const EdgeInsets.only(left: 30),
+            child: TextButton(
+              onPressed: () {
+                // Acción cuando se presiona "Iniciar Sesión"
+                Navigator.pushNamed(context, '/ingreso');
+              },
+              child: const Text('Iniciar Sesión',
+                  style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w500,
+                      color: Colors.black,
+                      fontSize: 16)),
             ),
           ),
-          TextButton(
-            onPressed: () {
-              // Acción cuando se presiona "Iniciar Sesión"
-              Navigator.pushNamed(context, '/ingreso');
-            },
-            child: const Text(
-              'Iniciar Sesión',
-              style: TextStyle(
-                color: Colors.black,
+          Padding(
+            padding: const EdgeInsets.only(left: 30, right: 100),
+            child: TextButton(
+              onPressed: () {
+                // Acción cuando se presiona "Registrarse"
+                Navigator.pushNamed(context, '/registro');
+              },
+              child: const Text(
+                'Registrarse',
+                style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black,
+                    fontSize: 16),
               ),
             ),
-          ),
-          TextButton(
-            onPressed: () {
-              // Acción cuando se presiona "Registrarse"
-              Navigator.pushNamed(context, '/registro');
-            },
-            child: const Text(
-              'Registrarse',
-              style: TextStyle(
-                color: Colors.black,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              // Acción cuando se presiona "Cliente"
-              Navigator.pushNamed(context, '/cliente');
-            },
-            child: const Text(
-              'Cliente',
-              style: TextStyle(
-                color: Colors.black,
-              ),
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              // Acción cuando se presiona "profesional"
-              Navigator.pushNamed(context, '/profesional');
-            },
-            child: const Text(
-              'Profesional',
-              style: TextStyle(
-                color: Colors.black,
-              ),
-            ),
-          ),
-          const SizedBox(width: 20.0),
+          )
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(150.0, 50.0, 150.0, 50.0),
+      body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             // Texto de bienvenida
-            const Text(
-              'Bienvenido a Just One Click!',
-              style: TextStyle(
-                fontSize: 30.0,
-                fontWeight: FontWeight.bold,
-              ),
+            Padding(
+              padding: EdgeInsets.only(top: 70),
+              child: Text('Realiza tu reserva:',
+                  style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xff393839))),
             ),
-            const SizedBox(height: 5.0), // Espaciado entre el texto y la sección existente
-            const Text(
-              'Realiza tu reserva',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            const SizedBox(height: 50.0), 
-            // Selección de fecha y hora
-            Row(
-              children: [
-                // Selección de fecha
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      final DateTime? pickedDate = await showDatePicker(
-                        context: context,
-                        initialDate: selectedDate,
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(2101),
-                      );
 
-                      if (pickedDate != null && pickedDate != selectedDate) {
-                        setState(() {
-                          selectedDate = pickedDate;
-                        });
-                      }
-                    },
-                    child: const Text('Seleccionar Fecha'),
+            Padding(
+              padding: const EdgeInsets.only(left: 100, right: 100, top: 70),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 500,
+                    child: TextField(
+                      onTap: () async {
+                        final DateTime? pickedDate = await showDatePicker(
+                          context: context,
+                          initialDate: selectedDate,
+                          firstDate: DateTime.now(),
+                          lastDate: DateTime(2101),
+                        );
+
+                        if (pickedDate != null && pickedDate != selectedDate) {
+                          setState(() {
+                            selectedDate = pickedDate;
+                            fecha.text = _formatDate(pickedDate);
+                          });
+                        }
+                      },
+                      controller: fecha,
+                      style: TextStyle(fontSize: 16),
+                      decoration: const InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                                color: Color.fromARGB(255, 218, 218, 218),
+                                width: 2.0),
+                          ),
+                          hintText: 'Seleccionar fecha',
+                          hintStyle: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w400,
+                              color: Color.fromARGB(255, 190, 190, 190),
+                              fontSize: 16),
+                          border: OutlineInputBorder(),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(
+                                  0xff52369d), // Establece un color transparente para quitar el color azul
+                            ),
+                          ),
+                          floatingLabelBehavior: FloatingLabelBehavior.always),
+                    ),
                   ),
-                ),
-                const SizedBox(width: 20.0),
-                // Selección de hora
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      final TimeOfDay? pickedTime = await showTimePicker(
-                        context: context,
-                        initialTime: selectedTime,
-                      );
+                  Padding(
+                    padding: EdgeInsets.only(left: 60),
+                    child: Container(
+                      width: 500,
+                      child: TextField(
+                        onTap: () async {
+                          final TimeOfDay? pickedTime = await showTimePicker(
+                            context: context,
+                            initialTime: selectedTime,
+                          );
 
-                      if (pickedTime != null && pickedTime != selectedTime) {
-                        setState(() {
-                          selectedTime = pickedTime;
-                        });
-                      }
-                    },
-                    child: const Text('Seleccionar Hora'),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 50.0),
-
-            // Mostrar la selección de fecha y hora
-            Text(
-              'Fecha seleccionada: ${DateFormat('dd/MM/yyyy').format(selectedDate)}',
-              style: const TextStyle(fontSize: 16.0),
-            ),
-            Text(
-              'Hora seleccionada: ${selectedTime.format(context)}',
-              style: const TextStyle(fontSize: 16.0),
-            ),
-            const SizedBox(height: 20.0),
-            // Selección del lugar
-            TextFormField(
-              onChanged: (value) {
-                setState(() {
-                  selectedLocation = value;
-                });
-              },
-              decoration: const InputDecoration(
-                labelText: 'Ingresa el lugar',
-              ),
-            ),
-            const SizedBox(height: 50.0),
-            const Text(
-              'Selecciona el servicio que deseas reservar',
-              style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.normal,
-              ),
-            ),
-            const SizedBox(height: 50.0),
-            // Lista de servicios
-            SizedBox(
-              height: 200.0, // Ajusta la altura según sea necesario
-              child: ListView.builder(
-                itemCount: services.length,
-                itemBuilder: (context, index) {
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedService = services[index];
-                      });
-                    },
-                    child: Card(
-                      color: selectedService == services[index]
-                          ? Colors.blue // Puedes personalizar el color de fondo cuando está seleccionado
-                          : null,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(services[index]),
+                          if (pickedTime != null &&
+                              pickedTime != selectedTime) {
+                            setState(() {
+                              selectedTime = pickedTime;
+                              hora.text = _formatTime(pickedTime);
+                            });
+                          }
+                        },
+                        controller: hora,
+                        style: TextStyle(fontSize: 16),
+                        decoration: const InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 218, 218, 218),
+                                  width: 2.0),
+                            ),
+                            hintText: 'Seleccionar hora',
+                            hintStyle: TextStyle(
+                                fontFamily: 'Poppins',
+                                fontWeight: FontWeight.w400,
+                                color: Color.fromARGB(255, 190, 190, 190),
+                                fontSize: 16),
+                            border: OutlineInputBorder(),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(
+                                    0xff52369d), // Establece un color transparente para quitar el color azul
+                              ),
+                            ),
+                            floatingLabelBehavior:
+                                FloatingLabelBehavior.always),
                       ),
                     ),
-                  );
-                },
+                  ),
+                ],
               ),
             ),
-            
 
-                    
-            const SizedBox(height: 20.0),
-            // Botón para confirmar reserva
-            ElevatedButton(
-              onPressed: () {
-                // Implementa la lógica para manejar la reserva del servicio
-                // Puedes acceder a los valores seleccionados (servicio, fecha, hora, lugar)
-                // desde las variables selectedService, selectedDate, selectedTime y selectedLocation
-                // Aquí puedes enviar los datos a tu backend o manejar la lógica de reserva según tu aplicación.
-              },
-              child: const Text('Confirmar Reserva'),
+            Padding(
+              padding: const EdgeInsets.only(top: 70, bottom: 40),
+              child: const Text('Selecciona el servicio que deseas reservar',
+                  style: TextStyle(
+                      fontFamily: 'Poppins',
+                      fontSize: 20,
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xff393839))),
             ),
+            Padding(
+              padding: const EdgeInsets.only(left: 420, right: 420),
+              child: Container(
+                height: 300, // Ajusta la altura según sea necesario
+                child: ListView.builder(
+                  itemCount: services.length,
+                  itemBuilder: (context, index) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedService = services[index];
+                        });
+                      },
+                      child: Card(
+                        color: selectedService == services[index]
+                            ? Color(
+                                0xff52369d) // Puedes personalizar el color de fondo cuando está seleccionado
+                            : null,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(services[index],
+                              style: TextStyle(
+                                  fontFamily: 'Poppins',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400,
+                                  color: selectedService == services[index]
+                                      ? Colors.white
+                                      : Color(0xff393839))),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.only(top: 40),
+              child: GestureDetector(
+                onTap: () {},
+                child: Container(
+                    height: 50,
+                    width: 300,
+                    decoration: const BoxDecoration(
+                      color: Color(0xff52369d),
+                      borderRadius: BorderRadius.all(Radius.circular(10)),
+                    ),
+                    child: const Center(
+                        child: Text(
+                      "Continuar",
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white),
+                    ))),
+              ),
+            )
           ],
         ),
       ),
-      persistentFooterButtons: [
+/*       persistentFooterButtons: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -330,12 +363,17 @@ class _AgendaServicioState extends State<agenda_servicio> {
             ),
           ],
         ),
-      ],
+      ], */
     );
   }
 
+  String _formatDate(DateTime date) {
+    // Puedes personalizar el formato de fecha según tus necesidades
+    return '${date.day}/${date.month}/${date.year}';
+  }
 
-
-
-
+  String _formatTime(TimeOfDay time) {
+    // Puedes personalizar el formato de hora según tus necesidades
+    return '${time.hour}:${time.minute}';
+  }
 }
