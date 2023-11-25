@@ -1,7 +1,6 @@
 // ignore_for_file: camel_case_types, library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'password_text_field.dart';
 
 class ingreso_usuarios extends StatefulWidget {
   const ingreso_usuarios({Key? key}) : super(key: key);

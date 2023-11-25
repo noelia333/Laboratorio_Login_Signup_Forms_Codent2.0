@@ -1,7 +1,6 @@
 // ignore_for_file: camel_case_types, library_private_types_in_public_api, prefer_typing_uninitialized_variables, prefer_const_constructors, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class agenda_servicio extends StatefulWidget {
   const agenda_servicio({Key? key}) : super(key: key);
