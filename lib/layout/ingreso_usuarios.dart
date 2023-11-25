@@ -1,6 +1,10 @@
 // ignore_for_file: camel_case_types, library_private_types_in_public_api, prefer_const_constructors, prefer_const_literals_to_create_immutables, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:laboratorio_login_signup_forms/layout/eleccion_servicio.dart';
 
 class ingreso_usuarios extends StatefulWidget {
   const ingreso_usuarios({Key? key}) : super(key: key);
@@ -16,6 +20,31 @@ class _IngresoUsuariosState extends State<ingreso_usuarios> {
 
   TextEditingController correo = TextEditingController();
   TextEditingController contrasena = TextEditingController();
+
+  Future login() async {
+    var url = Uri.http("192.168.0.10", 'login.php', {'q': '{http}'});
+    var response = await http.post(url, body: {
+      "correo": correo.text,
+      "contraseña": contrasena.text,
+    });
+
+    if (response.statusCode == 200) {
+      try {
+        var data = json.decode(response.body);
+        print("VALOR DATA:");
+        print(data);
+
+        if (data == "usuario") {
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => EleccionServicio()));
+        } else if (data == "administrador") {}
+      } catch (e) {
+        print("Error al decodificar JSON: $e");
+      }
+    } else {
+      print("Error en la solicitud HTTP: ${response.statusCode}");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
